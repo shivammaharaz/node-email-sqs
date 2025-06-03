@@ -18,3 +18,10 @@ export const AWS = {
   },
   sqsQueueUrl: process.env.SQS_QUEUE_URL,
 };
+
+export const DB = {
+  dbUrl: process.env.DB_URL,
+  options: {
+    maxPoolSize: process.env.DB_POOL_SIZE,
+  },
+};
