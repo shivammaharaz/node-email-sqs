@@ -1,4 +1,4 @@
-import transporter from "../config/email";
+import transporter from "../config/email.js";
 
 export const sendEmail = async function ({
   to,
@@ -23,7 +23,9 @@ export const sendEmail = async function ({
     } else {
       mailOption.html = html;
     }
-    return await transporter.sendMail(mailOption);
+    let ems = await transporter.sendMail(mailOption);
+    console.log(ems);
+    return ems;
   } catch (error) {
     console.log(error);
     throw error;

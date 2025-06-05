@@ -2,9 +2,16 @@ import { SendMessageCommand } from "@aws-sdk/client-sqs";
 import { sqsClient, queueUrl } from "../config/aws.js";
 
 export const queueEmail = async (emailData) => {
-  const param = {
-    QueuerUrl: queueUrl,
-    MessageBody: JSON.stringify(emailData),
-  };
-  return await sqsClient.send(new SendMessageCommand(param));
+  try {
+    const param = {
+      QueueUrl: queueUrl,
+      MessageBody: JSON.stringify(emailData),
+    };
+
+    console.log("param", param);
+    return await sqsClient.send(new SendMessageCommand(param));
+  } catch (error) {
+    console.log("error queueing email", error);
+    throw error;
+  }
 };

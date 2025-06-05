@@ -1,4 +1,4 @@
-import { queueEmail } from "../services/sqsProducer";
+import { queueEmail } from "../services/sqsProducer.js";
 export const sendMail = async function (req, res, next) {
   try {
     let { to, cc, bcc, body, attachments, html, subject } = req.body;
@@ -11,6 +11,7 @@ export const sendMail = async function (req, res, next) {
       html: html,
       attachments: attachments || [],
     };
+    console.log(emailData);
     let response = await queueEmail(emailData);
     return res.status(200).json({
       success: true,
@@ -18,7 +19,7 @@ export const sendMail = async function (req, res, next) {
       result: response,
     });
   } catch (error) {
-    console.log(err);
-    next(err);
+    console.log(error);
+    next(error);
   }
 };

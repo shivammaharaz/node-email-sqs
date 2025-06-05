@@ -2,8 +2,8 @@ import {
   ReceiveMessageCommand,
   DeleteMessageCommand,
 } from "@aws-sdk/client-sqs";
-import { sqsClient, queueUrl } from "../config/aws";
-import { sendEmail } from "./emailService";
+import { sqsClient, queueUrl } from "../config/aws.js";
+import { sendEmail } from "./emailService.js";
 
 export const consumeMessage = async function () {
   try {
@@ -16,8 +16,16 @@ export const consumeMessage = async function () {
       const { Messages } = await sqsClient.send(
         new ReceiveMessageCommand(params)
       );
+      console.log("message", Messages);
       if (Messages) {
         for (const message of Messages) {
+          await sqsClient.send(
+            new DeleteMessageCommand({
+              QueueUrl: queueUrl,
+              ReceiptHandle: message.ReceiptHandle,
+            })
+          );
+
           let emailData = JSON.parse(message.Body);
           try {
             await sendEmail(emailData);
@@ -34,7 +42,7 @@ export const consumeMessage = async function () {
       }
     }
   } catch (error) {
-    console.error("Error polling SQS:", error);
+    console.error(error);
     throw new Error("Error polling SQS:", error);
   }
 };
