@@ -16,16 +16,8 @@ export const consumeMessage = async function () {
       const { Messages } = await sqsClient.send(
         new ReceiveMessageCommand(params)
       );
-      console.log("message", Messages);
       if (Messages) {
         for (const message of Messages) {
-          await sqsClient.send(
-            new DeleteMessageCommand({
-              QueueUrl: queueUrl,
-              ReceiptHandle: message.ReceiptHandle,
-            })
-          );
-
           let emailData = JSON.parse(message.Body);
           try {
             await sendEmail(emailData);
