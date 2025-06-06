@@ -4,6 +4,7 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 import connection from "./config/database.js";
 import router from "./routes/emailRoutes.js";
 import consumer from "./consumer.js";
+import { port } from "./utils/constants.js";
 
 const app = express();
 
@@ -18,6 +19,6 @@ app.get("/", async (req, res) => {
 
 app.use(router);
 
-app.listen(3000, () => {
-  console.log("app is running on ", 3000);
+app.listen(port, () => {
+  console.log("app is running on ", port);
 });
