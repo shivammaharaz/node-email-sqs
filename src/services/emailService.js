@@ -1,4 +1,5 @@
 import transporter from "../config/email.js";
+import { createdLog } from "./emailLogService.js";
 
 export const sendEmail = async function ({
   to,
@@ -15,15 +16,24 @@ export const sendEmail = async function ({
       subject: subject,
       cc: cc || [],
       bcc: bcc || [],
-      attachments: attachments || [],
+      // attachments: attachments || [],
     };
+    if (attachments && Array.isArray(attachments)) {
+      mailOption.attachments = attachments.map((url, index) => ({
+        filename: `attachment-${index + 1}.${url.split(".").pop() || "file"}`,
+        path: url,
+        contentTransferEncoding: "base64",
+      }));
+    }
 
     if (body) {
-      mailOption.text = body;
+      mailOption.body = body;
     } else {
       mailOption.html = html;
     }
     let ems = await transporter.sendMail(mailOption);
+    mailOption.nodemailerResponse = ems;
+    await createdLog(mailOption);
     console.log(ems);
     return ems;
   } catch (error) {

@@ -28,7 +28,7 @@ export const consumeMessage = async function () {
               })
             );
           } catch (error) {
-            console.log("error sending emails", error);
+            console.error("error sending emails", error);
           }
         }
       }
