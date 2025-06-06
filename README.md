@@ -9,31 +9,6 @@ A simple Node.js Express application that uses Amazon SQS to queue emails and No
 - Basic error handling for API requests.
 - Uses ES Modules (`import`/`export`).
 
-## Project Structure
-
-```
-project-root/
-├── src/
-│   ├── config/
-│   │   ├── aws.js          # AWS SQS configuration
-│   │   └── index.js        # Email and AWS settings
-│   ├── controllers/
-│   │   └── emailController.js  # Handles email queue requests
-│   ├── services/
-│   │   ├── emailService.js     # Sends emails with Nodemailer
-│   │   ├── sqsProducer.js      # Queues emails in SQS
-│   │   └── sqsConsumer.js      # Processes SQS email jobs
-│   ├── routes/
-│   │   └── emailRoutes.js      # API routes
-│   ├── middleware/
-│   │   └── errorHandler.js     # Error handling
-│   └── app.js                  # Express server
-├── .env                        # Environment variables
-├── package.json                # Dependencies and scripts
-├── consumer.js                 # Runs SQS consumer
-└── README.md                   # Documentation
-```
-
 ## Prerequisites
 
 - Node.js (v18.x or higher)
