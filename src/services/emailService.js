@@ -33,7 +33,7 @@ export const sendEmail = async function ({
     }
     let ems = await transporter.sendMail(mailOption);
     mailOption.nodemailerResponse = ems;
-    await createdLog(mailOption);
+    // await createdLog(mailOption);
     console.log(ems);
     return ems;
   } catch (error) {
