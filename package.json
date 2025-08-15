@@ -1,7 +1,7 @@
 {
   "name": "email-sqs",
   "version": "1.0.1",
-  "description": "queue based email system with amazon sqs",
+  "description": "queue based email system with amazon sqs version 1.0.1",
   "keywords": [
     "sqs",
     "email",
